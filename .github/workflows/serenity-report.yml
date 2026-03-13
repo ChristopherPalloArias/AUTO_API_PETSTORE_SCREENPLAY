@@ -5,16 +5,20 @@ on:
     branches:
       - main
       - develop
+      - feature/setup-api-framework
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       
       - name: Set up Java 17 (Temurin)
         uses: actions/setup-java@v4
@@ -34,5 +38,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site/serenity
-          cname: api-petstore-serenity.local
-

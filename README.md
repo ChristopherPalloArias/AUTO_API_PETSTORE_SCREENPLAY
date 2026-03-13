@@ -86,6 +86,18 @@ Esquema del escenario: CP-API - Ciclo de vida completo de una mascota en el sist
 
 ---
 
+## 📊 Dashboard de Evidencias (CI/CD & Living Documentation)
+
+> 🚀 **Despliegue Continuo (GitHub Pages)**
+>
+> Este proyecto cuenta con un flujo de Integración Continua que despliega los reportes de Serenity BDD en tiempo real tras cada *push*.
+> 
+> 🔗 **Enlace Oficial:** [https://christopherpalloarias.github.io/AUTO_API_PETSTORE_SCREENPLAY/](https://christopherpalloarias.github.io/AUTO_API_PETSTORE_SCREENPLAY/)
+> 
+> 📸 **Instrucción de Visualización:** Dentro del reporte, en el paso de **registro**, podrás encontrar la evidencia visual (URL) de la mascota creada dinámicamente.
+
+---
+
 ## 🏗️ Arquitectura Screenplay
 
 El framework está estructurado en capas semánticas que constituyen el núcleo del patrón Screenplay adaptado nativamente para servicios web REST (Serenity Rest):

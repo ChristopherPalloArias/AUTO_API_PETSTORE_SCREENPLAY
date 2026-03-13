@@ -18,6 +18,7 @@ import com.petstore.qa.questions.PetWasRegistered;
 import com.petstore.qa.questions.PetWasFound;
 import com.petstore.qa.questions.PetWasUpdated;
 import com.petstore.qa.questions.PetWasDeleted;
+import com.petstore.qa.interactions.RecordPetImage;
 
 import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
@@ -46,6 +47,9 @@ public class PetStoreManagementStepDefinitions {
         Pet petToRegister = theActorInTheSpotlight().recall("dynamicPet");
         theActorInTheSpotlight().attemptsTo(
                 RegisterPet.withData(petToRegister)
+        );
+        theActorInTheSpotlight().attemptsTo(
+                RecordPetImage.withUrl(petToRegister.getPhotoUrls().get(0))
         );
     }
 

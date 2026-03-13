@@ -1,0 +1,38 @@
+name: Serenity BDD Report & Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Java 17 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      
+      - name: Grant Execute Permission to Gradle Wrapper
+        run: chmod +x gradlew
+      
+      - name: Run Tests and Generate Serenity Reports
+        run: ./gradlew clean test aggregate
+      
+      - name: Deploy Serenity Reports to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site/serenity
+          cname: api-petstore-serenity.local
+

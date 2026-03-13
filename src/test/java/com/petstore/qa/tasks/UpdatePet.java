@@ -4,6 +4,7 @@ import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
+import net.serenitybdd.screenplay.rest.interactions.Put;
 import net.serenitybdd.annotations.Step;
 import com.petstore.qa.model.Pet;
 
@@ -21,14 +22,14 @@ public class UpdatePet implements Task {
     @Override
     @Step("{0} updates the pet information")
     public <T extends Actor> void performAs(T actor) {
-        SerenityRest
-                .given()
-                    .contentType("application/json")
-                    .body(pet)
-                .put("/pet");
+        actor.attemptsTo(
+                Put.to("/pet").with(request -> request
+                        .header("Content-Type", "application/json")
+                        .body(pet)
+                )
+        );
 
-        int statusCode = SerenityRest.lastResponse().getStatusCode();
-        actor.remember("updateStatusCode", statusCode);
+        actor.remember("updateStatusCode", SerenityRest.lastResponse().statusCode());
     }
 }
 

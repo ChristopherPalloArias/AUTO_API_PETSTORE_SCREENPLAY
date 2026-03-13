@@ -4,6 +4,7 @@ import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
+import net.serenitybdd.screenplay.rest.interactions.Delete;
 import net.serenitybdd.annotations.Step;
 
 public class DeletePet implements Task {
@@ -20,11 +21,13 @@ public class DeletePet implements Task {
     @Override
     @Step("{0} removes the pet from the system")
     public <T extends Actor> void performAs(T actor) {
-        SerenityRest
-                .delete("/pet/" + petId);
+        actor.attemptsTo(
+                Delete.from("/pet/{id}").with(request -> request
+                        .pathParam("id", petId)
+                )
+        );
 
-        int statusCode = SerenityRest.lastResponse().getStatusCode();
-        actor.remember("deleteStatusCode", statusCode);
+        actor.remember("deleteStatusCode", SerenityRest.lastResponse().statusCode());
     }
 }
 

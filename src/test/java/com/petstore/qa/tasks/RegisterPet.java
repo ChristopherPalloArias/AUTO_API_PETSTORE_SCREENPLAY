@@ -4,6 +4,7 @@ import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
+import net.serenitybdd.screenplay.rest.interactions.Post;
 import net.serenitybdd.annotations.Step;
 import com.petstore.qa.model.Pet;
 
@@ -21,14 +22,14 @@ public class RegisterPet implements Task {
     @Override
     @Step("{0} registers a new pet")
     public <T extends Actor> void performAs(T actor) {
-        SerenityRest
-                .given()
-                    .contentType("application/json")
-                    .body(pet)
-                .post("/pet");
+        actor.attemptsTo(
+                Post.to("/pet").with(request -> request
+                        .header("Content-Type", "application/json")
+                        .body(pet)
+                )
+        );
 
-        int statusCode = SerenityRest.lastResponse().getStatusCode();
-        actor.remember("registrationStatusCode", statusCode);
+        actor.remember("registrationStatusCode", SerenityRest.lastResponse().statusCode());
     }
 }
 

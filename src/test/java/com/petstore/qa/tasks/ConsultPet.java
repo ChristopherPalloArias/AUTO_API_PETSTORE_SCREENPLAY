@@ -4,6 +4,7 @@ import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
+import net.serenitybdd.screenplay.rest.interactions.Get;
 import net.serenitybdd.annotations.Step;
 
 public class ConsultPet implements Task {
@@ -20,11 +21,13 @@ public class ConsultPet implements Task {
     @Override
     @Step("{0} queries the pet information by id")
     public <T extends Actor> void performAs(T actor) {
-        SerenityRest
-                .get("/pet/" + petId);
+        actor.attemptsTo(
+                Get.resource("/pet/{id}").with(request -> request
+                        .pathParam("id", petId)
+                )
+        );
 
-        int statusCode = SerenityRest.lastResponse().getStatusCode();
-        actor.remember("consultStatusCode", statusCode);
+        actor.remember("consultStatusCode", SerenityRest.lastResponse().statusCode());
     }
 }
 

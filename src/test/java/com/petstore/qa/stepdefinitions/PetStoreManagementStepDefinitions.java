@@ -6,8 +6,9 @@ import io.cucumber.java.es.Cuando;
 import io.cucumber.java.es.Entonces;
 import io.cucumber.java.es.Y;
 import io.restassured.RestAssured;
-import net.serenitybdd.screenplay.actors.OnlineCast;
+import net.serenitybdd.screenplay.actors.Cast;
 import net.serenitybdd.screenplay.actors.OnStage;
+import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
 import com.petstore.qa.model.Pet;
 import com.petstore.qa.model.PetDataFactory;
 import com.petstore.qa.tasks.RegisterPet;
@@ -31,7 +32,7 @@ public class PetStoreManagementStepDefinitions {
     @Before
     public void setUp() {
         RestAssured.baseURI = "https://petstore.swagger.io/v2";
-        OnStage.setTheStage(new OnlineCast());
+        OnStage.setTheStage(Cast.whereEveryoneCan(CallAnApi.at(RestAssured.baseURI)));
     }
 
     @Dado("que el administrador prepara el registro para la mascota {string}")

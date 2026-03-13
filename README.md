@@ -217,7 +217,7 @@ Al concluir exitosamente los 4 verbos validados, el framework volcará un **Livi
   Para mantener la idempotencia real, las validaciones extraen el `timestamp` persistido temporalmente para asegurar que los endpoints (`/pet/{petId}`) atacan únicamente tu recurso sin dañar el ecosistema general del Taller, demostrando control avanzado a nivel parametrización.
 
 * **Cadenas Asíncronas Rest:**  
-  Las llamadas son seguidas implícitamente de aserciones `lastResponse()`. Las Questions `ServerResponseCode` analizan con un *then().statusCode()* sin fugas de responsabilidades en la definición de tareas.
+  Las llamadas son seguidas implícitamente de aserciones `lastResponse()`. Las Questions `ServerResponseCode` analizan con un *then().statusCode()* sin fugas de responsabilidades en la definición de las tareas.
 
 * **Gestión Flexible de URLs para CI/CD:**  
   Las tareas confían fuertemente en que RestAssured es instruido temporalmente con los datos de `serenity.conf`. Esta base unificada es medular en despliegues automatizados porque facilita sobreescribir dicha directiva ambiental (`-Dbase.url=...`) mitigando la constante reformulación de los binarios.

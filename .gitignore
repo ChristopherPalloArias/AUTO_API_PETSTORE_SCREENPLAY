@@ -1,0 +1,46 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Gradle
+.gradle/
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+!gradlew
+!gradlew.bat
+
+# Serenity BDD and Maven
+target/
+*.jar
+!**/gradle/wrapper/*.jar
+
+# Logs
+*.log
+logs/
+
+# System files
+.DS_Store
+Thumbs.db
+.classpath
+.project
+.settings/
+*.class
+*.jar
+*.war
+
+# IDE
+.vscode/
+.env
+.env.local
+
+# OS
+*.swp
+*.swo
+*~
+.~*
+

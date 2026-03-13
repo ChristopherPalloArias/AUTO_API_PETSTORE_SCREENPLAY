@@ -22,6 +22,9 @@ public class DeletePet implements Task {
     public <T extends Actor> void performAs(T actor) {
         SerenityRest
                 .delete("/pet/" + petId);
+
+        int statusCode = SerenityRest.lastResponse().getStatusCode();
+        actor.remember("deleteStatusCode", statusCode);
     }
 }
 

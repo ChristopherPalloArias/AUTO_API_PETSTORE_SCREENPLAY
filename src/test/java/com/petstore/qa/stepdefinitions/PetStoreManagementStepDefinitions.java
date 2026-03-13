@@ -6,7 +6,6 @@ import io.cucumber.java.es.Cuando;
 import io.cucumber.java.es.Entonces;
 import io.cucumber.java.es.Y;
 import io.restassured.RestAssured;
-import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.serenitybdd.screenplay.actors.OnStage;
 import com.petstore.qa.model.Pet;
@@ -15,12 +14,14 @@ import com.petstore.qa.tasks.RegisterPet;
 import com.petstore.qa.tasks.ConsultPet;
 import com.petstore.qa.tasks.UpdatePet;
 import com.petstore.qa.tasks.DeletePet;
-import com.petstore.qa.questions.ResponseCode;
+import com.petstore.qa.questions.PetWasRegistered;
+import com.petstore.qa.questions.PetWasFound;
+import com.petstore.qa.questions.PetWasUpdated;
+import com.petstore.qa.questions.PetWasDeleted;
 
 import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
-import static org.hamcrest.Matchers.isOneOf;
 
 public class PetStoreManagementStepDefinitions {
 
@@ -58,7 +59,10 @@ public class PetStoreManagementStepDefinitions {
     @Entonces("verifica que la mascota fue creada exitosamente")
     public void verifiesPetWasCreatedSuccessfully() {
         theActorInTheSpotlight().should(
-                seeThat(ResponseCode.wasReceived(), isOneOf(200, 201))
+                seeThat(PetWasRegistered.successfully())
+        );
+        theActorInTheSpotlight().should(
+                seeThat(PetWasFound.inTheSystem())
         );
     }
 
@@ -81,7 +85,10 @@ public class PetStoreManagementStepDefinitions {
     @Entonces("el registro completo de la mascota ya no debe existir en la tienda")
     public void theCompleteRecordOfThePetMustNotExistInTheStore() {
         theActorInTheSpotlight().should(
-                seeThat(ResponseCode.wasReceived(), isOneOf(200, 204))
+                seeThat(PetWasUpdated.successfully())
+        );
+        theActorInTheSpotlight().should(
+                seeThat(PetWasDeleted.successfully())
         );
     }
 }

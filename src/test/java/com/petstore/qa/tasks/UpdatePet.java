@@ -26,6 +26,9 @@ public class UpdatePet implements Task {
                     .contentType("application/json")
                     .body(pet)
                 .put("/pet");
+
+        int statusCode = SerenityRest.lastResponse().getStatusCode();
+        actor.remember("updateStatusCode", statusCode);
     }
 }
 

@@ -26,6 +26,9 @@ public class RegisterPet implements Task {
                     .contentType("application/json")
                     .body(pet)
                 .post("/pet");
+
+        int statusCode = SerenityRest.lastResponse().getStatusCode();
+        actor.remember("registrationStatusCode", statusCode);
     }
 }
 

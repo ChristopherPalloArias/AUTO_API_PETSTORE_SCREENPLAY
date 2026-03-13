@@ -22,6 +22,9 @@ public class ConsultPet implements Task {
     public <T extends Actor> void performAs(T actor) {
         SerenityRest
                 .get("/pet/" + petId);
+
+        int statusCode = SerenityRest.lastResponse().getStatusCode();
+        actor.remember("consultStatusCode", statusCode);
     }
 }
 
